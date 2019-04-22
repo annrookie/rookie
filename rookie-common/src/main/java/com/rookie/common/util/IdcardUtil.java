@@ -16,18 +16,7 @@ import java.util.Set;
  * @date 2019/4/12 9:36
  */
 public class IdcardUtil {
-    /**
-     * 中国公民身份证号码最小长度。
-     */
-    private static final int IDCARD_LENGTH_15 = 15;
-    /**
-     * 中国公民身份证号码最大长度。
-     */
-    private static final int IDCARD_LENGTH_18 = 18;
-    /**
-     * 每位加权因子
-     */
-    private static final int power[] = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
+
     /**
      * 省市代码表
      */
@@ -137,10 +126,10 @@ public class IdcardUtil {
         if ((idCard == null || !idCard.matches(Constant.REG_IDCARD))) {
             return false;
         }
-        if (idCard.length() == IDCARD_LENGTH_15) {
+        if (idCard.length() == Constant.IDCARD_LENGTH_15) {
             idCard = convert18(idCard);
         }
-        if (idCard == null || idCard.length() != IDCARD_LENGTH_18) {
+        if (idCard == null || idCard.length() != Constant.IDCARD_LENGTH_18) {
             return false;
         }
 
@@ -163,10 +152,10 @@ public class IdcardUtil {
      */
     public static String getBirthday(String idCard) {
         String birthday = null;
-        if (IDCARD_LENGTH_15 == idCard.length()) {
+        if (Constant.IDCARD_LENGTH_15 == idCard.length()) {
             birthday = "19" + idCard.substring(6, 12);
         }
-        if (IDCARD_LENGTH_18 == idCard.length()) {
+        if (Constant.IDCARD_LENGTH_18 == idCard.length()) {
             birthday = idCard.substring(6, 14);
         }
         if (ComUtil.isDate(birthday)) {
@@ -258,7 +247,7 @@ public class IdcardUtil {
      * @return int性别
      */
     public static int getGender(String idCard){
-        if (idCard.length() == IDCARD_LENGTH_15){
+        if (idCard.length() == Constant.IDCARD_LENGTH_15){
             idCard = convert18(idCard);
         }
         int gender = -1;
@@ -284,7 +273,7 @@ public class IdcardUtil {
      */
     public static String convert18(String idCard) {
         // 判断身份证长度是否为15
-        if (idCard.length() != IDCARD_LENGTH_15) {
+        if (idCard.length() != Constant.IDCARD_LENGTH_15) {
             return null;
         }
         // 获取省份集合
@@ -313,9 +302,9 @@ public class IdcardUtil {
      */
     public static String getCheckNumber(String code) {
         int sum = 0;
-        if (code.length() == power.length) {
+        if (code.length() == Constant.POWER.length) {
             for (int i = 0; i < code.length(); i++) {
-                sum += (code.charAt(i) - '0') * power[i];
+                sum += (code.charAt(i) - '0') * Constant.POWER[i];
             }
         }
         switch (sum % 11) {

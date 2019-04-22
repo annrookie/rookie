@@ -2,9 +2,9 @@ package com.rookie.common.util;
 
 import com.rookie.common.filter.Accept;
 import com.rookie.common.filter.Filter;
+import com.rookie.common.resource.Constant;
 
 import java.lang.reflect.Array;
-import java.nio.file.DirectoryStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,9 +18,6 @@ import java.util.List;
  * @date 2019/4/3 17:39
  */
 public class ArrayUtil {
-    private static final int INDEX_OUT = -1;
-    private static final String NULL = "null";
-    private static final String EMPTY = "";
 
     /**
      * 判断是否为数组
@@ -514,7 +511,7 @@ public class ArrayUtil {
      * @return
      */
     public static <T> T[] filterNulls(T[] arr) {
-        return filter(arr, (Filter<T>) t -> NULL.equals(t) ? null : t);
+        return filter(arr, (Filter<T>) t -> Constant.NULL.equals(t) ? null : t);
     }
 
     /**
@@ -536,7 +533,7 @@ public class ArrayUtil {
      * @return
      */
     public static <T> T[] filterEmpty(T[] arr) {
-        return filter(arr, (Filter<T>) t -> (EMPTY.equals(t) ? null : t));
+        return filter(arr, (Filter<T>) t -> (Constant.EMPTY.equals(t) ? null : t));
     }
 
     /**
@@ -547,7 +544,7 @@ public class ArrayUtil {
      * @return
      */
     public static <T> T[] filterEmptys(T[] arr) {
-        return filter(arr, (Filter<T>) t -> (EMPTY.equals(t) || NULL.equals(t)) ? null : t);
+        return filter(arr, (Filter<T>) t -> (Constant.EMPTY.equals(t) || Constant.NULL.equals(t)) ? null : t);
     }
 
     /**
@@ -625,14 +622,14 @@ public class ArrayUtil {
      */
     public static <T> int indexOf(T[] arr, T param) {
         if (isEmpty(arr)) {
-            return INDEX_OUT;
+            return Constant.NEG_ONE;
         }
         for (int i = 0; i < arr.length; i++) {
             if (param == arr[i]) {
                 return i;
             }
         }
-        return INDEX_OUT;
+        return Constant.NEG_ONE;
     }
 
     /**
@@ -645,14 +642,14 @@ public class ArrayUtil {
      */
     public static <T> int lastIndexOf(T[] arr, T param) {
         if (isEmpty(arr)) {
-            return INDEX_OUT;
+            return Constant.NEG_ONE;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
             if (param == arr[i]) {
                 return i;
             }
         }
-        return INDEX_OUT;
+        return Constant.NEG_ONE;
     }
 
     /**
@@ -967,86 +964,86 @@ public class ArrayUtil {
      */
     public static int indexOf(int[] arr, int i) {
         if (isEmpty(arr)) {
-            return INDEX_OUT;
+            return Constant.NEG_ONE;
         }
         for (int i1 = 0; i1 < arr.length; i1++) {
             if (arr[i1] == i) {
                 return i1;
             }
         }
-        return INDEX_OUT;
+        return Constant.NEG_ONE;
     }
 
     public static int indexOf(short[] arr, short i) {
         if (isEmpty(arr)) {
-            return INDEX_OUT;
+            return Constant.NEG_ONE;
         }
         for (int i1 = 0; i1 < arr.length; i1++) {
             if (arr[i1] == i) {
                 return i1;
             }
         }
-        return INDEX_OUT;
+        return Constant.NEG_ONE;
     }
 
     public static int indexOf(long[] arr, long i) {
         if (isEmpty(arr)) {
-            return INDEX_OUT;
+            return Constant.NEG_ONE;
         }
         for (int i1 = 0; i1 < arr.length; i1++) {
             if (arr[i1] == i) {
                 return i1;
             }
         }
-        return INDEX_OUT;
+        return Constant.NEG_ONE;
     }
 
     public static int indexOf(char[] arr, char i) {
         if (isEmpty(arr)) {
-            return INDEX_OUT;
+            return Constant.NEG_ONE;
         }
         for (int i1 = 0; i1 < arr.length; i1++) {
             if (arr[i1] == i) {
                 return i1;
             }
         }
-        return INDEX_OUT;
+        return Constant.NEG_ONE;
     }
 
     public static int indexOf(byte[] arr, byte i) {
         if (isEmpty(arr)) {
-            return INDEX_OUT;
+            return Constant.NEG_ONE;
         }
         for (int i1 = 0; i1 < arr.length; i1++) {
             if (arr[i1] == i) {
                 return i1;
             }
         }
-        return INDEX_OUT;
+        return Constant.NEG_ONE;
     }
 
     public static int indexOf(double[] arr, double i) {
         if (isEmpty(arr)) {
-            return INDEX_OUT;
+            return Constant.NEG_ONE;
         }
         for (int i1 = 0; i1 < arr.length; i1++) {
             if (arr[i1] == i) {
                 return i1;
             }
         }
-        return INDEX_OUT;
+        return Constant.NEG_ONE;
     }
 
     public static int indexOf(float[] arr, float i) {
         if (isEmpty(arr)) {
-            return INDEX_OUT;
+            return Constant.NEG_ONE;
         }
         for (int i1 = 0; i1 < arr.length; i1++) {
             if (arr[i1] == i) {
                 return i1;
             }
         }
-        return INDEX_OUT;
+        return Constant.NEG_ONE;
     }
 
     /**
@@ -1058,86 +1055,86 @@ public class ArrayUtil {
      */
     public static int lastIndexOf(int[] arr, int param) {
         if (isEmpty(arr)) {
-            return INDEX_OUT;
+            return Constant.NEG_ONE;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
             if (param == arr[i]) {
                 return i;
             }
         }
-        return INDEX_OUT;
+        return Constant.NEG_ONE;
     }
 
     public static int lastIndexOf(short[] arr, short param) {
         if (isEmpty(arr)) {
-            return INDEX_OUT;
+            return Constant.NEG_ONE;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
             if (param == arr[i]) {
                 return i;
             }
         }
-        return INDEX_OUT;
+        return Constant.NEG_ONE;
     }
 
     public static int lastIndexOf(byte[] arr, byte param) {
         if (isEmpty(arr)) {
-            return INDEX_OUT;
+            return Constant.NEG_ONE;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
             if (param == arr[i]) {
                 return i;
             }
         }
-        return INDEX_OUT;
+        return Constant.NEG_ONE;
     }
 
     public static int lastIndexOf(long[] arr, long param) {
         if (isEmpty(arr)) {
-            return INDEX_OUT;
+            return Constant.NEG_ONE;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
             if (param == arr[i]) {
                 return i;
             }
         }
-        return INDEX_OUT;
+        return Constant.NEG_ONE;
     }
 
     public static int lastIndexOf(char[] arr, char param) {
         if (isEmpty(arr)) {
-            return INDEX_OUT;
+            return Constant.NEG_ONE;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
             if (param == arr[i]) {
                 return i;
             }
         }
-        return INDEX_OUT;
+        return Constant.NEG_ONE;
     }
 
     public static int lastIndexOf(double[] arr, double param) {
         if (isEmpty(arr)) {
-            return INDEX_OUT;
+            return Constant.NEG_ONE;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
             if (param == arr[i]) {
                 return i;
             }
         }
-        return INDEX_OUT;
+        return Constant.NEG_ONE;
     }
 
     public static int lastIndexOf(float[] arr, float param) {
         if (isEmpty(arr)) {
-            return INDEX_OUT;
+            return Constant.NEG_ONE;
         }
         for (int i = arr.length - 1; i >= 0; i--) {
             if (param == arr[i]) {
                 return i;
             }
         }
-        return INDEX_OUT;
+        return Constant.NEG_ONE;
     }
 
     /**

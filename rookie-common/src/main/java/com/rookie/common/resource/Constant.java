@@ -11,76 +11,134 @@ public class Constant {
      */
     public static final String EMPTY = "";
     public static final String NULL = "null";
+    public static final int NEG_ONE = -1;
 
-    /** 数字、26个英文字母或者下划线组成的字符串 */
+    /**
+     * 日期格式
+     */
+    public static final String[] DATE_FORMAT = {"yyyyMMdd", "yyyy-MM-dd", "yyyy/MM/dd", "yyyy.MM.dd", "yyyy年MM月dd日", "yyyy MM dd"};
+
+    /**
+     * 中国公民身份证号码最小长度。
+     */
+    public static final int IDCARD_LENGTH_15 = 15;
+    /**
+     * 中国公民身份证号码最大长度。
+     */
+    public static final int IDCARD_LENGTH_18 = 18;
+
+    /**
+     * 每位加权因子
+     */
+    public static final int[] POWER = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
+
+    //常见正则表达式------------------------------------------
+    /**
+     * 数字、26个英文字母或者下划线组成的字符串
+     */
     public static final String REG_COMMON = "^\\w+$";
 
-    /** 英文字母和数字*/
+    /**
+     * 英文字母和数字
+     */
     public static final String REG_WORD_NUMBER = "^[A-Za-z0-9]+$";
 
-    /** 英文字母 */
+    /**
+     * 英文字母
+     */
     public static final String REG_WORD = "^[A-Za-z]+$";
 
-    /** 汉字 */
+    /**
+     * 汉字
+     */
     public static final String REG_CHINESE = "^[\\u4E00-\\u9FA5A]{0,}$";
 
-    /** 数字 */
+    /**
+     * 数字
+     */
     public static final String REG_NUMBER = "^[0-9]*$";
 
-    /** 正整数 */
+    /**
+     * 正整数
+     */
     public static final String REG_ABS_INTEGER = "^[1-9]\\d*$";
 
-    /** 负整数 */
+    /**
+     * 负整数
+     */
     public static final String REG_NEG_INTEGER = "^-[1-9]\\d*$";
 
-    /** 自然数 >=0 的整数*/
+    /**
+     * 自然数 >=0 的整数
+     */
     public static final String REG_NAT_INTEGER = "^\\d+$";
 
-    /** 小数 */
+    /**
+     * 小数
+     */
     public static final String REG_FLOAT = "^(-?\\d+)(\\.\\d+)?$";
 
-    /** 邮箱验证 http://emailregex.com/ */
+    /**
+     * 邮箱验证 http://emailregex.com/
+     */
     public static final String REG_EMAIL = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
 
-    /** 域名 */
+    /**
+     * 域名
+     */
     public static final String REG_HOST = "[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+/.?";
 
-    /** URL地址验证 */
-    public static final String  REG_URL = "^((ht|f)tps?):\\/\\/([\\w\\-]+(\\.[\\w\\-]+)*\\/)*[\\w\\-]+(\\.[\\w\\-]+)*\\/?(\\?([\\w\\-\\.,@?^=%&:\\/~\\+#]*)+)?";
+    /**
+     * URL地址验证
+     */
+    public static final String REG_URL = "^((ht|f)tps?):\\/\\/([\\w\\-]+(\\.[\\w\\-]+)*\\/)*[\\w\\-]+(\\.[\\w\\-]+)*\\/?(\\?([\\w\\-\\.,@?^=%&:\\/~\\+#]*)+)?";
 
-    /** 手机号码 */
+    /**
+     * 手机号码
+     */
     public static final String REG_MOBILE = "^(13[0-9]|14[5|7|9]|15[0|1|2|3|5|6|7|8|9]|166|17[0|1|3|5|6|7|8]|18[0|1|2|3|5|6|7|8|9]|19[8|9])\\d{8}$";
 
-    /** 电话号码 */
+    /**
+     * 电话号码
+     */
     public static final String REG_PHONE = "^(\\(\\d{3,4}-)|\\d{3.4}-)?\\d{7,8}$";
 
-    /** 企业电话 */
+    /**
+     * 企业电话
+     */
     public static final String REG_CORP_PHONE = "\\d{3}-\\d{8}|\\d{4}-\\d{7}";
 
-    /** 身份证 */
+    /**
+     * 身份证
+     */
     public static final String REG_IDCARD = "^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$|^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|X)$";
 
-    /**日期校验
+    /**
+     * 日期校验
      * yyyy-MM-dd | yyyy/MM/dd | yyyyMMdd | yyyy.MM.dd | yyyy年MM月dd日
      */
     public static final String REG_DATE = "^(\\d{2,4})([/\\-\\.年]?)(\\d{1,2})([/\\-\\.月]?)(\\d{1,2})日?$";
 
-    /** ipv4*/
+    /**
+     * ipv4
+     */
     public static final String REG_IPV4 = "\\b((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\b";
 
-    /** ipv6 */
+    /**
+     * ipv6
+     */
     public static final String REG_IPV6 = "(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))";
 
-    /** mac地址 */
+    /**
+     * mac地址
+     */
     public static final String REG_MAC = "((?:[A-F0-9]{1,2}[:-]){5}[A-F0-9]{1,2})|(?:0x)(\\d{12})(?:.+ETHER)";
 
-    /** 车牌号码正则 包含新能源 */
+    /**
+     * 车牌号码正则 包含新能源
+     */
     public static final String REG_PLATE = "^([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[a-zA-Z](([DF]((?![IO])[a-zA-Z0-9](?![IO]))[0-9]{4})|([0-9]{5}[DF]))|[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1})$";
 
-    //常用静态变量-------------------------------------------------------
-
-    /**日期格式*/
-    public static final String[] DATE_FORMAT = {"yyyyMMdd","yyyy-MM-dd","yyyy/MM/dd","yyyy.MM.dd","yyyy年MM月dd日","yyyy MM dd"};
     /** 身份证省县市编码  */
     /*
 7. 身份证号(15位、18位数字)：^\d{15}|\d{18}$

@@ -13,8 +13,6 @@ import java.util.UUID;
  */
 public class StrUtil {
 
-//    public static final String EMPTY = "";
-
     /**
      * 判断字符串是否为空白字符串
      *
