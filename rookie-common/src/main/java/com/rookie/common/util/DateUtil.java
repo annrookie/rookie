@@ -1,6 +1,5 @@
 package com.rookie.common.util;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,10 +13,37 @@ import java.util.Date;
 public class DateUtil {
 
     /**
+     * 获取当前日期
+     *
+     * @return 当前日期Date形式
+     */
+    public static Date getDate() {
+        return new Date();
+    }
+
+    /**
+     * 获取当前时间戳，含毫秒
+     *
+     * @return 时间戳
+     */
+    public static long getTimestamp() {
+        return System.currentTimeMillis();
+    }
+
+    /**
+     * 获取时间戳，不含毫秒
+     * @return 时间戳
+     */
+    public static long getTime() {
+        return System.currentTimeMillis() / 1000;
+    }
+
+    /**
      * 时间格式转换
-     * @param date 时间格式字符串
+     *
+     * @param date      时间格式字符串
      * @param nowFormat 当前时间格式
-     * @param format 转换后的字符串
+     * @param format    转换后的字符串
      * @return 转换完的时间格式
      */
     public static String changeFormat(String date, String nowFormat, String format) {
@@ -27,7 +53,7 @@ public class DateUtil {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
             return simpleDateFormat.format(d);
         } catch (Exception e) {
-            return null;
+            return date;
         }
     }
 }
