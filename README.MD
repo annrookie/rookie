@@ -1,0 +1,28 @@
+#Rookie
+    *项目说明：
+        此项目主要致力于JAVA工具类的开发，方便新手能够更快掌握和使用，故取名为rookie。
+        项目开发人员也是菜鸟一枚，如有更好的解决方案或是方法，欢迎提出，谢谢。
+
+#Rookie-common
+    * 通用工具包，主要包含了多种简单的工具类。
+    * 结构目录如下：
+        |--com
+            |--rookie
+                |--common
+                    |--exception 异常处理
+                    |--filter    过滤器接口
+                    |--resource  静态常量类资源
+                    |--util      工具类     
+    * 目前包括如下工具类：
+        1.StrUtil:字符串工具类
+        2.ArrayUtil:数组工具类
+        3.ComUtil：校验工具类
+        3.IdCardUtil：身份证工具类[开发中...]
+        4.DateUtil:日期工具类[开发中...]  
+
+        
+        
+        
+        
+
+    

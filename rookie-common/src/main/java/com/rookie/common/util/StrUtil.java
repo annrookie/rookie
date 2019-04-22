@@ -32,7 +32,7 @@ public class StrUtil {
     }
 
     /**
-     * 判断字符是否为空白符，空白符包括空格、制表符、全角空格和不间断空格
+     * 判断字符是否为空白字符串，包括空格、制表符、全角空格和不间断空格
      *
      * @param c 字符
      * @return 是否为空
@@ -275,7 +275,9 @@ public class StrUtil {
      * 字符串去空，分左去空，两边去空，右去空
      *
      * @param str  需要去空的字符串
-     * @param type <code>0</code> 去左右两边空格 <code>-1</code> 去左边空格 <code>1</code> 去右边空格
+     * @param type 0 去左右两边空格
+     *             -1 去左边空格
+     *             1 去右边空格
      * @return 去空完字符串 null = null
      */
     public static String trim(String str, int type) {
@@ -442,10 +444,87 @@ public class StrUtil {
         return s.substring(0, 8) + s.substring(9, 13) + s.substring(14, 18) + s.substring(19, 23) + s.substring(24);
     }
 
-    public static String hide(String str,int start,int end){
-        if (isEmpty(str)){
+    /**
+     * 隐藏字符串，默认起始位置为1/3,结束位置2/3
+     * @param str 隐藏字符串
+     * @return 隐藏后的字符串
+     */
+    public static String hide(String str) {
+        if (isEmpty(str)) {
             return Constant.EMPTY;
         }
-        return null;
+        int length = str.length();
+        if (length < 3) {
+            return str;
+        }
+        return hide(str, length / 3 - 1, (length / 3) * 2);
+    }
+
+    /**
+     * 隐藏字符串指定起始位置到结束位置【索引】
+     *
+     * @param str   被隐藏的字符串
+     * @param start 起始索引
+     * @param end   结束索引
+     * @return 隐藏后的字符串
+     */
+    public static String hide(String str, int start, int end) {
+        if (isEmpty(str)) {
+            return Constant.EMPTY;
+        }
+        if (end < start) {
+            return str;
+        }
+        if (start < 0) {
+            start = 0;
+        }
+        if (end > str.length()) {
+            end = str.length();
+        }
+        int length = end - start;
+        if (length == 0) {
+            return str;
+        }
+        String beforeStr = str.substring(0, start + 1);
+        String centralStr = getHideFlag(length - 1);
+        String afterStr = str.substring(end);
+        return beforeStr + centralStr + afterStr;
+    }
+
+    /**
+     * 获取隐藏标识 默认6个 *
+     * @return String
+     */
+    public static String getHideFlag() {
+        return getHideFlag(6);
+    }
+
+    /**
+     * 获取指定长度隐藏标识 默认*
+     * @param length 长度
+     * @return 字符串
+     */
+    public static String getHideFlag(int length) {
+        if (length == 0) {
+            return Constant.EMPTY;
+        }
+        return getHideFlag(length, "*");
+    }
+
+    /**
+     * 获取指定长度，指定标识
+     * @param length 长度
+     * @param flag 标识
+     * @return String
+     */
+    public static String getHideFlag(int length, String flag) {
+        if (length == 0) {
+            return Constant.EMPTY;
+        }
+        StringBuilder sb = new StringBuilder(flag);
+        for (int i = 0; i < length - 1; i++) {
+            sb.append(flag);
+        }
+        return sb.toString();
     }
 }

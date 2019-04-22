@@ -86,4 +86,13 @@ public class StrUtilTest {
 //        System.out.println(StrUtil.count("asdferqwiofdsfkmkcds","d"));
         Assert.assertEquals(3,StrUtil.count("asdferqwiodfsfkmkcdfs",'d'));
     }
+
+    @Test
+    public void hideTest(){
+        String str = "abcasqwe123124d";
+        System.out.println(str.length());
+        String hide = StrUtil.hide(str);
+        System.out.println(hide);
+        System.out.println(hide.length());
+    }
 }

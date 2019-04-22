@@ -1,7 +1,10 @@
 package com.rookie.common.util;
 
+import com.rookie.common.resource.AreaCode;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Set;
 
 /**
  * @author This
@@ -50,5 +53,10 @@ public class IdcardUtilTest {
     public void getGenderTest(){
         int i = IdcardUtil.getGender("330719196804253671");
         System.out.println(i);
+    }
+    @Test
+    public void getAreaTest(){
+        String area = IdcardUtil.getArea("330719196804253671");
+        System.out.println(area);
     }
 }
