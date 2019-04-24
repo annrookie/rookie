@@ -171,7 +171,7 @@ public class ComUtil {
      */
     public static boolean isIdcard(String str) {
         if (str != null && str.matches(Constant.REG_IDCARD)) {
-            if (!isDate(IdcardUtil.getBirthday(str))){
+            if (!isDate(IdcardUtil.getBirthday(str))) {
                 return false;
             }
             if (str.length() == 18) {
@@ -203,7 +203,7 @@ public class ComUtil {
     /**
      * 校验时间格式
      * 支持格式：
-     * yyyyMMdd
+     * yyyyMMdd |  yyyyMMdd HH:mm:ss
      * yyyy-MM-dd
      * yyyy/MM/dd
      * yyyy.MM.dd
@@ -220,6 +220,12 @@ public class ComUtil {
                 int year = Integer.parseInt(matcher.group(1));
                 int month = Integer.parseInt(matcher.group(3));
                 int day = Integer.parseInt(matcher.group(5));
+                if (matcher.group(6) != null) {
+                    int hour = Integer.parseInt(matcher.group(8));
+                    int min = Integer.parseInt(matcher.group(10));
+                    int second = Integer.parseInt(matcher.group(13));
+                    return isDay(year, month, day) && isTime(hour, min, second);
+                }
                 return isDay(year, month, day);
             } else {
                 return false;
@@ -261,6 +267,18 @@ public class ComUtil {
             }
         }
         return true;
+    }
+
+    /**
+     * 判断是否为时分秒
+     *
+     * @param hour   时
+     * @param min    分
+     * @param second 秒
+     * @return boolean
+     */
+    public static boolean isTime(int hour, int min, int second) {
+        return (hour >= 0 && hour <= 24) && (min >= 0 && min <= 60) && (second >= 0 && second <= 60);
     }
 
     /**

@@ -19,6 +19,16 @@ public class Constant {
     public static final String[] DATE_FORMAT = {"yyyyMMdd", "yyyy-MM-dd", "yyyy/MM/dd", "yyyy.MM.dd", "yyyy年MM月dd日", "yyyy MM dd"};
 
     /**
+     * 日期格式 yyyy-MM-dd HH:mm:ss
+     */
+    public static final String DATE_NORMAL = "yyyy-MM-dd HH:mm:ss";
+
+    /**
+     * 标准日期格式 yyyy-MM-dd
+     */
+    public static final String DATE_DAY = "yyyy-MM-dd";
+
+    /**
      * 中国公民身份证号码最小长度。
      */
     public static final int IDCARD_LENGTH_15 = 15;
@@ -117,7 +127,7 @@ public class Constant {
      * 日期校验
      * yyyy-MM-dd | yyyy/MM/dd | yyyyMMdd | yyyy.MM.dd | yyyy年MM月dd日
      */
-    public static final String REG_DATE = "^(\\d{2,4})([/\\-\\.年]?)(\\d{1,2})([/\\-\\.月]?)(\\d{1,2})日?$";
+    public static final String REG_DATE = "^(\\d{2,4})([/\\-\\.年]?)(\\d{1,2})([/\\-\\.月]?)(\\d{1,2})日?(([\\s+]?)(\\d{1,2})([:\\s+\\.时]?)(\\d{1,2})([\\s+\\.分]?)([:\\s+\\.分]?)(\\d{1,2})秒?)?$";
 
     /**
      * ipv4

@@ -15,6 +15,25 @@ public class DateTest {
 
     @Test
     public void getTimeTest(){
-        System.out.println(DateUtil.getTime());
+        System.out.println(DateUtil.getTimestamps());
+    }
+
+    @Test
+    public void nowTimeTest(){
+        System.out.println(DateUtil.nowTime());
+    }
+    @Test
+    public void timestampToTimeTest(){
+        System.out.println(DateUtil.timestampToTime(DateUtil.getTimestamp()));
+    }
+
+    @Test
+    public void timestampsToTimeTest(){
+        System.out.println(DateUtil.timestampsToTime(DateUtil.getTimestamps()));
+    }
+
+    @Test
+    public void timeToDateTest(){
+        System.out.println(DateUtil.timeToDate("2019-03-13"));
     }
 }

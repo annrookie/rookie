@@ -1,5 +1,38 @@
 #Rookie-common
-    * 通用工具包，主要包含了简单多种简单的工具类。 
+* 通用工具类：主要包含简单的工具类  
+* 项目结构  
+```
+   . rookie-common
+   ├── com
+         ├── rookie
+               ├── common
+                     ├── exception 异常处理
+                     ├── filter    过滤器
+                     ├── resource  静态常量资源  
+                     └── util      工具类
+ ```
+     * exception 异常处理：  
+     ```
+       1 UtilException：util异常处理类
+     ```
+     * filter 过滤器：  
+     ```
+       1 Accept：过滤接口  
+       2 Filter：过滤接口  
+     ```
+     * resource 静态常量资源：  
+     ```
+       1 Constant：静态资源常量类  
+       2 AreaCode：行政区域代码及名称
+     ```
+     * util 工具类包：  
+     ```
+        1 StrUtil：   字符串工具类  
+        2 ArrayUtil： 数组工具类  
+        3 ComUtil：   校验工具  
+        4 IdcardUtil：身份证工具类  
+        5 DateUtil：  日期工具类  
+     ```
 #StrUtil
     **************************
     ******* 字符串工具类  *****

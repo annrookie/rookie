@@ -1,7 +1,11 @@
 package com.rookie.common.util;
 
+import com.rookie.common.resource.AreaCode;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author This
@@ -50,7 +54,7 @@ public class ComUtilTest {
 
     @Test
     public void isDateTest(){
-        Assert.assertTrue(ComUtil.isDate("2016/02/29"));
+        Assert.assertTrue(ComUtil.isDate("2018/02/27 23:13:61"));
     }
 
     @Test
@@ -62,4 +66,27 @@ public class ComUtilTest {
     public void isPlateTest(){
         Assert.assertTrue(ComUtil.isPlate("京A06088"));
     }
+
+    @Test
+    public void getProvinceTest(){
+        Map<String, String> province = AreaCode.getProvince();
+        System.out.println(province.size());
+        for (String s : province.keySet()) {
+            System.out.println(province.get(s));
+        }
+    }
+    @Test
+    public void getCityTest(){
+        List<Map<String, Object>> city = AreaCode.getCity();
+        System.out.println(city.size());
+        System.out.println(city);
+    }
+
+    @Test
+    public void getAllProvincesTest(){
+        List<Map<String, Object>> city = AreaCode.getArea();
+        System.out.println(city.size());
+        System.out.println(city);
+    }
+
 }

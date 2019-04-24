@@ -17,11 +17,3 @@
                   ├── resource  静态常量资源  
                   └── util      工具类
 ```  
-  * 工具类：  
-  ```
-     1 StrUtil：字符串工具类  
-     2 ArrayUtil：数组工具类  
-     3 ComUtil：校验工具  
-     4 IdcardUtil：身份证工具类  
-     5 DateUtil：日期工具类  
-  ```

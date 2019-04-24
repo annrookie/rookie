@@ -1,5 +1,10 @@
 package com.rookie.common.util;
 
+
+import com.rookie.common.exception.UtilException;
+import com.rookie.common.resource.Constant;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -31,11 +36,85 @@ public class DateUtil {
     }
 
     /**
-     * 获取时间戳，不含毫秒
+     * 获取时间戳，秒数
+     *
      * @return 时间戳
      */
-    public static long getTime() {
+    public static long getTimestamps() {
         return System.currentTimeMillis() / 1000;
+    }
+
+    /**
+     * 获取当前时间：
+     * 标准格式 yyyy-MM-dd HH:mm:ss
+     *
+     * @return 返回当前时间字符串
+     */
+    public static String nowTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_NORMAL);
+        return sdf.format(getDate());
+    }
+
+    /**
+     * 获取当天时间
+     * yyyy-MM-dd
+     * @return 返回当天日期
+     */
+    public static String nowDay(){
+        SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_DAY);
+        return sdf.format(getDate());
+    }
+
+    /**
+     * 获取当前时间，以指定日期格式
+     *
+     * @param format 指定日期格式
+     * @return 当前时间字符串
+     */
+    public static String nowDate(String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        return sdf.format(getDate());
+    }
+
+    /**
+     * 毫秒时间戳转标准时间格式
+     * yyyy-MM-dd HH:mm:ss
+     *
+     * @param timestamp 时间戳
+     * @return 标准时间形式
+     */
+    public static String timestampToTime(long timestamp) {
+        SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_NORMAL);
+        return sdf.format(timestamp);
+    }
+
+    /**
+     * 秒时间戳转标准时间格式
+     * yyyy-MM-dd HH:mm:ss
+     *
+     * @param timestamps 时间戳
+     * @return 标准时间形式
+     */
+    public static String timestampsToTime(long timestamps) {
+        SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_NORMAL);
+        return sdf.format(timestamps * 1000);
+    }
+
+    /**
+     * 日期转Date类型
+     * @param nowTime 当前日期
+     * @return Date类型日期
+     */
+    public static Date timeToDate(String nowTime){
+        if (!ArrayUtil.contains(Constant.DATE_FORMAT,nowTime)){
+            return null;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_DAY);
+        try {
+            return sdf.parse(nowTime);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
