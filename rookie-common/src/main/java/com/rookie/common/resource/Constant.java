@@ -12,6 +12,9 @@ public class Constant {
     public static final String EMPTY = "";
     public static final String NULL = "null";
     public static final int NEG_ONE = -1;
+    public static final int ZERO = 0;
+    public static final int ONE = 1;
+    public static final int TWO = 2;
 
     /**
      * 日期格式
@@ -41,6 +44,18 @@ public class Constant {
      * 每位加权因子
      */
     public static final int[] POWER = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
+    /**
+     * 平年每月天数
+     */
+    public static final int[] MONTH_LENGTH = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    /**
+     * 闰年每月天数
+     */
+    public static final int[] LEAP_MONTH_LENGTH = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    public static final String[] WEEK_CN = {"星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"};
+    public static final String[] WEEK_EN = {"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"};
+    public static final String[] WEEK_NUM = {"1", "2", "3", "4", "5", "6", "7"};
 
     //常见正则表达式------------------------------------------
     /**

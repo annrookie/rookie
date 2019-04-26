@@ -1,8 +1,8 @@
-#Rookie-common
+# rookie-common
 * 通用工具类：主要包含简单的工具类  
 * 项目结构  
 ```
-   . rookie-common
+   rookie-common
    ├── com
          ├── rookie
                ├── common
@@ -11,71 +11,25 @@
                      ├── resource  静态常量资源  
                      └── util      工具类
  ```
-     * exception 异常处理：  
-     ```
-       1 UtilException：util异常处理类
-     ```
-     * filter 过滤器：  
-     ```
-       1 Accept：过滤接口  
-       2 Filter：过滤接口  
-     ```
-     * resource 静态常量资源：  
-     ```
-       1 Constant：静态资源常量类  
-       2 AreaCode：行政区域代码及名称
-     ```
-     * util 工具类包：  
-     ```
-        1 StrUtil：   字符串工具类  
-        2 ArrayUtil： 数组工具类  
-        3 ComUtil：   校验工具  
-        4 IdcardUtil：身份证工具类  
-        5 DateUtil：  日期工具类  
-     ```
-#StrUtil
-    **************************
-    ******* 字符串工具类  *****
-    * 部分借鉴网上资源进行整合 *
-    **************************
-    * 方法：
-    
-        # 判断是否为空白字符串
-       【空格、制表符、全角空格和不间断空格皆为空白字符串】
-       
-        1.isBlank:判断字符串是否为空白字符串
-        2.isNotBlank：判断字符串是否不为空白字符串
-        3.existBlank：判断字符串内是否存在空白字符串
-        4.isAllBlank：判断字符串数组是否全为空
-        5.blankToStr：空白字符串转指定字符串
-        6.blankToEmpty：空白字符串转为空""字符串
-        
-        # 判断是否为空
-        【空定义：""或null】
-        
-        1.isEmpty：判断是否为空
-        2.isNotEmpty：判断不为空
-        3.existEmpty：判断字符串数组存在空
-        4.isAllEmpty：判断字符串数组全为空
-        5.nullToEmpty：null转为""
-        6.emptyToStr：空转指定字符串
-        7.emptyToNull：""转null
-        8.isNullOrUndefined：判断是否为null、"null" 或 "undefined"
-        9.isEmptyOrUndefined：判断是否为空、"null" 或 "undefined"
-        10.isBlankOrUndefined：判断是否为空白字符串、"null" 或 "undefined"
-        
-        # 字符串常用操作
-        
-        1.trim：左右两边去空
-        2.trimLeft：左去空
-        3.trimRight：右去空
-        4.firstToUpper：首字母转大写
-        5.firstToLower：首字母转小写
-        6.removeBlank：去空白字符
-        7.count：统计指定内容中包含指定字符的数量，null 或 "" 返回0
-        8.uuid：获取uuid
-        9.hide：将字符串指定范围替换为指定的标识
-        10.getHideFlag：获取指定长度的字符串标识
-
-#ArrayUtil
+### 目录结构介绍  
+* exception：异常处理  
+    * UtilException：util异常处理类  
+* filter：过滤器接口  
+    * Accept：过滤器接收接口，boolean filter(T t)  
+    * Filter：过滤器过滤接口，T filter(T t)
+* resource : 静态常量资源   
+    * Constant：静态常量类  
+        * 常用静态正则：如日期、邮箱正则等  
+        * 常用静态常量：如空字符串、长度  
+    * AreaCode：行政区域类  
+        * Properties pro：已加载的行政区域信息  
+        * Map<String,String> getProvince：获取省份信息  
+        * List<Map<String,Object>> getCity：获取省市行政区域信息  
+        * List<Map<String,Object>> getArea：获取所有省市县行政区域信息  
+* util：工具类  
+    * StrUtil：字符串工具类  
+    * ArrayUtil：数组工具类  
+    * ComUtil：校验工具类  
+    * IdcardUtil：身份证工具类  
+    * DateUtil：日期工具类
         

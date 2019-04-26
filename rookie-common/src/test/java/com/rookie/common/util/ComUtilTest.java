@@ -54,7 +54,7 @@ public class ComUtilTest {
 
     @Test
     public void isDateTest(){
-        Assert.assertTrue(ComUtil.isDate("2018/02/27 23:13:61"));
+        Assert.assertTrue(ComUtil.isDate("2018 02 27 23:13:60"));
     }
 
     @Test

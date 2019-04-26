@@ -260,7 +260,7 @@ public class ComUtil {
             return day <= 30;
         }
         if (month == 2) {
-            if (isLeapYear(year)) {
+            if (DateUtil.isLeapYear(year)) {
                 return day <= 29;
             } else {
                 return day <= 28;
@@ -281,15 +281,6 @@ public class ComUtil {
         return (hour >= 0 && hour <= 24) && (min >= 0 && min <= 60) && (second >= 0 && second <= 60);
     }
 
-    /**
-     * 判断是否为闰年
-     *
-     * @param year 年
-     * @return boolean
-     */
-    public static boolean isLeapYear(int year) {
-        return new GregorianCalendar().isLeapYear(year);
-    }
 
     /**
      * 判断是否为ipv4
