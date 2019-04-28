@@ -4,13 +4,10 @@ package com.rookie.common.util;
 import com.rookie.common.exception.UtilException;
 import com.rookie.common.resource.Constant;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -241,13 +238,21 @@ public class DateUtil {
     }
 
     /**
+     * 获取当前天数为今年的第几天
+     *
+     * @return 天数
+     */
+    public static int getDayOfYear() {
+        return getLocalDateTime().getDayOfYear();
+    }
+
+    /**
      * 获取当前季度
      *
      * @return 当前季度
      */
     public static int getQuarter() {
-        int quarter = getMonth() / 3;
-        return getMonth() % 3 == 0 ? quarter : quarter + 1;
+        return getQuarter(getMonth());
     }
 
     /**
@@ -256,11 +261,53 @@ public class DateUtil {
      * @return 总共天数
      */
     public static int getMonthLength() {
-        Calendar calendar = getCalendar();
-        int i = calendar.get(Calendar.MONTH);
-        return isLeapYear(getYear()) ? Constant.LEAP_MONTH_LENGTH[i] : Constant.MONTH_LENGTH[i];
+        return getMonthLength(getYear(), getMonth());
     }
 
+    /**
+     * 获取当前日期在本月的周数
+     *
+     * @return 本月第几周
+     */
+    public static int getWeekOfMonth() {
+        return getWeekOfMonth(getCalendar());
+    }
+
+    /**
+     * 获取当前日期在其年份所在的周数
+     *
+     * @return 周数
+     */
+    public static int getWeekOfYear() {
+        return getWeekOfYear(getDayOfYear());
+    }
+
+    /**
+     * 获取当前时间小时部分
+     *
+     * @return
+     */
+    public static int getHour() {
+        return getLocalDateTime().getHour();
+    }
+
+    /**
+     * 获取当前时间分钟部分
+     *
+     * @return
+     */
+    public static int getMinute() {
+        return getLocalDateTime().getMinute();
+    }
+
+    /**
+     * 获取当前时间秒部分
+     *
+     * @return
+     */
+    public static int getSecond() {
+        return getLocalDateTime().getSecond();
+    }
     //指定日期操作=====================================================
 
     /**
@@ -357,22 +404,7 @@ public class DateUtil {
      * @return 星期
      */
     public static int getDayOfWeek(String date) {
-        String normalDate = toNormalDate(date);
-        if (Constant.EMPTY.equals(normalDate)) {
-            return Constant.NEG_ONE;
-        }
-        SimpleDateFormat sdf;
-        if (normalDate.length() > 10) {
-            sdf = new SimpleDateFormat(Constant.DATE_NORMAL);
-        } else {
-            sdf = new SimpleDateFormat(Constant.DATE_DAY);
-        }
-        try {
-            Date d = sdf.parse(normalDate);
-            return getDayOfWeek(d);
-        } catch (ParseException e) {
-            throw new UtilException("日期转换出错，请确认后重试！");
-        }
+        return getDayOfWeek(toCalendar(date));
     }
 
     public static int getDayOfWeek(Date date) {
@@ -429,6 +461,9 @@ public class DateUtil {
      * @return 字符串星期数
      */
     private static String getDayOfWeek(int i, int type) {
+        if (i == Constant.NEG_ONE) {
+            return Constant.EMPTY;
+        }
         switch (type) {
             case 1:
                 return Constant.WEEK_CN[i - 1];
@@ -460,6 +495,379 @@ public class DateUtil {
             default:
                 return Constant.WEEK_NUM[i];
         }
+    }
+
+    /**
+     * 获取一年中的天数
+     *
+     * @param date 指定日期
+     * @return 天数
+     */
+    public static int getDayOfYear(String date) {
+        Calendar calendar = toCalendar(date);
+        return calendar == null ? Constant.NEG_ONE : calendar.get(Calendar.DAY_OF_YEAR);
+    }
+
+    public static int getDayOfYear(Date date) {
+        Calendar calendar = dateToCalendar(date);
+        return calendar.get(Calendar.DAY_OF_YEAR);
+    }
+
+    public static int getDayOfYear(Calendar calendar) {
+        return calendar.get(Calendar.DAY_OF_YEAR);
+    }
+
+    public static int getDayOfYear(LocalDateTime localDateTime) {
+        return localDateTime.getDayOfYear();
+    }
+
+    /**
+     * 获取季度
+     *
+     * @param date 指定日期
+     * @return 季度或-1 【-1表示时间错误或不能为空】
+     */
+    public static int getQuarter(String date) {
+        if (StrUtil.isEmpty(date)) {
+            return Constant.NEG_ONE;
+        }
+        Calendar calendar = toCalendar(date);
+        return getQuarter(calendar);
+    }
+
+    public static int getQuarter(Date date) {
+        Calendar calendar = dateToCalendar(date);
+        return getQuarter(calendar);
+    }
+
+    public static int getQuarter(Calendar calendar) {
+        return getQuarter(calendar.get(Calendar.MONTH) + 1);
+    }
+
+    public static int getQuarter(LocalDateTime localDateTime) {
+        return getQuarter(localDateTime.getMonthValue());
+    }
+
+    /**
+     * 获取季度
+     *
+     * @param month 月份
+     * @return 返回季度 1【1月-3月】 2【4月-6月】 3【7月-9月】 4【10月-12月】
+     */
+    private static int getQuarter(int month) {
+        int quarter = month / 3;
+        return month % 3 == 0 ? quarter : quarter + 1;
+    }
+
+    /**
+     * 获取指定日期的月份天数
+     *
+     * @param date 指定日期
+     * @return 1-31 或 -1
+     */
+    public static int getMonthLength(String date) {
+        if (StrUtil.isEmpty(date)) {
+            return Constant.NEG_ONE;
+        }
+        Calendar calendar = toCalendar(date);
+        return getMonthLength(calendar);
+    }
+
+    public static int getMonthLength(Date date) {
+        Calendar calendar = dateToCalendar(date);
+        return getMonthLength(calendar);
+    }
+
+    public static int getMonthLength(Calendar c) {
+        return getMonthLength(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1);
+    }
+
+    public static int getMonthLength(LocalDateTime localDateTime) {
+        return getMonthLength(localDateTime.getYear(), localDateTime.getMonthValue());
+    }
+
+    public static int getMonthLength(int year, int month) {
+        if (year <= 0 || month < 1 || month > 12) {
+            return Constant.NEG_ONE;
+        }
+        return isLeapYear(year) ? Constant.LEAP_MONTH_LENGTH[month - 1] : Constant.MONTH_LENGTH[month - 1];
+    }
+
+    /**
+     * 获取指定日期 在其月份所在的周数
+     *
+     * @param date 指定日期
+     * @return 周数
+     */
+    public static int getWeekOfMonth(String date) {
+        if (StrUtil.isEmpty(date)) {
+            return Constant.NEG_ONE;
+        }
+        Calendar calendar = toCalendar(date);
+        return getWeekOfMonth(calendar);
+    }
+
+    public static int getWeekOfMonth(LocalDateTime localDateTime) {
+        int dayOfMonth = localDateTime.getDayOfMonth();
+        return dayOfMonth % 7 == 0 ? dayOfMonth / 7 : dayOfMonth / 7 + 1;
+    }
+
+    public static int getWeekOfMonth(Calendar calendar) {
+        return calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+    }
+
+    /**
+     * 获取指定时间在其年份所在的周数
+     *
+     * @param date 指定时间
+     * @return 周数
+     */
+    public static int getWeekOfYear(String date) {
+        return getWeekOfYear(getDayOfYear(date));
+    }
+
+    public static int getWeekOfYear(Date date) {
+        return getWeekOfYear(getDayOfYear(date));
+    }
+
+    public static int getWeekOfYear(Calendar calendar) {
+        return getWeekOfYear(getDayOfYear(calendar));
+    }
+
+    public static int getWeekOfYear(LocalDateTime localDateTime) {
+        return getWeekOfYear(getDayOfYear(localDateTime));
+    }
+
+    private static int getWeekOfYear(int days) {
+        if (days > 366 || days < 0) {
+            return Constant.NEG_ONE;
+        }
+        return days % 7 == 0 ? days / 7 : days / 7 + 1;
+    }
+
+    /**
+     * 获取指定时间的小时数
+     *
+     * @param date 指定时间
+     * @return 小时数
+     */
+    public static int getHour(String date) {
+        if (StrUtil.isEmpty(date)) {
+            return Constant.ZERO;
+        }
+        Date d = toDate(date);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH");
+        return Integer.valueOf(sdf.format(d));
+    }
+
+    public static int getHour(Date date) {
+        Calendar calendar = dateToCalendar(date);
+        return calendar.get(Calendar.HOUR);
+    }
+
+    public static int getHour(Calendar calendar) {
+        return calendar.get(Calendar.HOUR);
+    }
+
+    public static int getHour(LocalDateTime localDateTime) {
+        return localDateTime.getHour();
+    }
+
+    /**
+     * 获取秒数
+     *
+     * @param date 指定时间
+     * @return 秒数
+     */
+    public static int getMinute(String date) {
+        if (StrUtil.isEmpty(date)) {
+            return Constant.ZERO;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("mm");
+        return Integer.valueOf(sdf.format(toDate(date)));
+    }
+
+    public static int getMinute(Date date) {
+        Calendar calendar = dateToCalendar(date);
+        return calendar.get(Calendar.MINUTE);
+    }
+
+    public static int getMinute(Calendar calendar) {
+        return calendar.get(Calendar.MINUTE);
+    }
+
+    public static int getMinute(LocalDateTime localDateTime) {
+        return localDateTime.getMinute();
+    }
+
+    /**
+     * 获取秒数
+     *
+     * @param date 指定时间
+     * @return 秒
+     */
+    public static int getSecond(String date) {
+        if (StrUtil.isEmpty(date)) {
+            return Constant.ZERO;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("ss");
+        return Integer.valueOf(sdf.format(toDate(date)));
+    }
+
+    public static int getSecond(Date date) {
+        Calendar calendar = dateToCalendar(date);
+        return calendar.get(Calendar.SECOND);
+    }
+
+    public static int getSecond(Calendar calendar) {
+        return calendar.get(Calendar.SECOND);
+    }
+
+    public static int getSecond(LocalDateTime localDateTime) {
+        return localDateTime.getSecond();
+    }
+
+    /**
+     * 判断是否为早上
+     *
+     * @param date 指定时间
+     * @return boolean
+     */
+    public static boolean isAM(String date) {
+        return getHour(date) < 12;
+    }
+
+    public static boolean isAM(Date date) {
+        return getHour(date) < 12;
+    }
+
+    /**
+     * 判断是否为下午
+     *
+     * @param date 指定时间
+     * @return boolean
+     */
+    public static boolean isPM(String date) {
+        return !isAM(date);
+    }
+
+    public static boolean isPM(Date date) {
+        return !isAM(date);
+    }
+
+    /**
+     * 获取一组时间中最小时间
+     *
+     * @param date 时间字符串数组
+     * @return 最小时间
+     */
+    public static String getMinTime(String... date) {
+        if (ArrayUtil.isEmpty(date)) {
+            return Constant.EMPTY;
+        }
+        if (date.length == 1) {
+            return date[0];
+        }
+        String minTime = date[0];
+        for (String s : date) {
+            if (!ComUtil.isDate(s)) {
+                throw new UtilException("存在不合法的时间");
+            }
+            if (timeToTimestamp(toNormalDate(minTime).get("date")) > timeToTimestamp(toNormalDate(s).get("date"))) {
+                minTime = s;
+            }
+        }
+        return minTime;
+    }
+
+    /**
+     * 获取最大时间
+     *
+     * @param date 时间数组
+     * @return 最大时间
+     */
+    public static String getMaxTime(String... date) {
+        if (ArrayUtil.isEmpty(date)) {
+            return Constant.EMPTY;
+        }
+        if (date.length == 1) {
+            return date[0];
+        }
+        String maxTime = date[0];
+        for (String s : date) {
+            if (!ComUtil.isDate(s)) {
+                throw new UtilException("存在不合法的时间");
+            }
+            if (timeToTimestamp(toNormalDate(maxTime).get("date")) < timeToTimestamp(toNormalDate(s).get("date"))) {
+                maxTime = s;
+            }
+        }
+        return maxTime;
+    }
+
+    /**
+     * 相差时间
+     *
+     * @param start 第一个时间点
+     * @param end   第二个时间点
+     * @return 相差时间的map
+     */
+    public static Map<String, Integer> getDifferTime(String start, String end) {
+        if (!ComUtil.isDate(start) || !ComUtil.isDate(end)) {
+            throw new UtilException("存在时间不合法");
+        }
+        Map<String, String> startMap = toNormalDate(start);
+        Map<String, String> endMap = toNormalDate(end);
+        Map<String, Integer> map = new HashMap<>();
+        long startStamp = timeToTimestamp(startMap.get("date"));
+        long endStamp = timeToTimestamp(endMap.get("date"));
+        if (startStamp == endStamp) {
+            map.put("day", 0);
+            map.put("hour", 0);
+            map.put("minute", 0);
+            map.put("second", 0);
+        } else {
+            int diff = (int) Math.abs(startStamp - endStamp) / 1000;
+            map = getDHms(diff);
+        }
+        return map;
+    }
+
+    public static String getHms(int secondStamp) {
+        Map<String, Integer> map = getDHms(secondStamp);
+        StringBuilder sb = new StringBuilder();
+        String hour = map.get("hour") > 10 ? map.get("hour").toString() : "0" + map.get("hour") + ":";
+        sb.append(hour);
+        String min = map.get("min") > 10 ? map.get("min").toString() : "0" + map.get("min") + ":";
+        sb.append(min);
+        String second = map.get("second") > 10 ? map.get("second").toString() : "0" + map.get("second");
+        sb.append(second);
+        return sb.toString();
+    }
+
+
+    /**
+     * 秒时间戳获取天，时，分，秒Map
+     *
+     * @param seconds 秒时间戳
+     * @return map
+     */
+    public static Map<String, Integer> getDHms(int seconds) {
+        // 一天 / 60*60*24
+        int days = seconds / 86400;
+        // 一天还剩下的小时数 / (60*60) % 24
+        int hour = (seconds / 3600) % 24;
+        // 一天还剩下的分钟数 % (60*60) / 60；
+        int min = (seconds % (3600)) / 60;
+        // 秒数
+        int second = (seconds % 3600) % 60;
+
+        Map<String, Integer> map = new HashMap<>();
+        map.put("day", days);
+        map.put("hour", hour);
+        map.put("min", min);
+        map.put("second", second);
+        return map;
     }
     //时间戳操作=======================================================
 
@@ -560,6 +968,30 @@ public class DateUtil {
     }
 
     /**
+     * 指定时间字符串 转 毫秒时间戳
+     *
+     * @param date 指定时间
+     * @return 时间戳
+     */
+    public static long timeToTimestamp(String date) {
+        if (StrUtil.isEmpty(date)) {
+            return Constant.ZERO;
+        }
+        Date d = toDate(date);
+        return d.getTime();
+    }
+
+    /**
+     * 指定时间转秒时间戳
+     *
+     * @param date 指定时间
+     * @return 秒时间戳
+     */
+    public static long timeToSecondStamp(String date) {
+        return timeToTimestamp(date) / 1000;
+    }
+
+    /**
      * @param timestamp
      * @return
      */
@@ -567,36 +999,64 @@ public class DateUtil {
         return new Date(timestamp * 1000);
     }
 
+
+    //时间格式转换===========================================================
+
     /**
      * 日期转Date类型
      *
-     * @param nowTime 当前日期
+     * @param date 当前日期
      * @return Date类型日期
      */
-    public static Date timeToDate(String nowTime) {
-        String date = toNormalDate(nowTime);
+    public static Date toDate(String date) {
         if (StrUtil.isEmpty(date)) {
             return null;
         }
-        SimpleDateFormat sdf;
-        if (date.length() > 10) {
-            sdf = new SimpleDateFormat(Constant.DATE_NORMAL);
-        } else {
-            sdf = new SimpleDateFormat(Constant.DATE_DAY);
+        Map<String, String> map = toNormalDate(date);
+        if (map == null) {
+            return null;
         }
+        SimpleDateFormat sdf = new SimpleDateFormat(map.get("format"));
         try {
-            return sdf.parse(date);
+            return sdf.parse(map.get("date"));
         } catch (Exception e) {
             throw new UtilException("日期转换出错");
         }
     }
 
-    //时间格式转换===========================================================
+    /**
+     * 当前日期转为LocalDateTime对象
+     *
+     * @param date 当前日期
+     * @return LocalDateTime对象
+     */
+    public static LocalDateTime toLocalDateTime(String date) {
+        Map<String, String> map = toNormalDate(date);
+        if (map == null) {
+            return null;
+        }
+        String time = map.get("date");
+        if (time.length() <= 10) {
+            time += " 00:00:00";
+        }
+        return LocalDateTime.parse(time, strFormat2DTF(Constant.DATE_NORMAL));
+    }
+
+    /**
+     * 日期转Calendar对象
+     *
+     * @param date 日期字符串
+     * @return Calendar对象
+     */
+    public static Calendar toCalendar(String date) {
+        Date d = toDate(date);
+        return d == null ? null : dateToCalendar(d);
+    }
 
     /**
      * 日期转为标准格式的时间
      * 支持格式：yyyy-MM-dd  yyyy/MM/dd yyyyMMdd yyyy.MM.dd yyyy年MM月dd日
-     * HH:mm:ss ~                                 HH时mm分ss秒
+     * HH:mm:ss               ~                     HH时mm分ss秒
      * 转为格式
      * yyyy-MM-dd HH:mm:ss
      * yyyy-MM-dd
@@ -604,10 +1064,11 @@ public class DateUtil {
      * @param date 日期
      * @return 标准格式日期
      */
-    public static String toNormalDate(String date) {
+    public static Map<String, String> toNormalDate(String date) {
         if (StrUtil.isEmpty(date)) {
-            return Constant.EMPTY;
+            return null;
         }
+        Map<String, String> map = new HashMap<String, String>(2);
         Pattern regDate = Pattern.compile(Constant.REG_DATE);
         Matcher matcher = regDate.matcher(date);
         if (matcher.find()) {
@@ -618,6 +1079,7 @@ public class DateUtil {
                 throw new UtilException("日期不合法");
             }
             String normalDate = year + "-" + month + "-" + day;
+            String format = "yyyy-MM-dd";
             if (matcher.group(6) != null) {
                 String second = matcher.group(13);
                 String min = matcher.group(10);
@@ -626,8 +1088,11 @@ public class DateUtil {
                     throw new UtilException("日期不合法");
                 }
                 normalDate += " " + hour + ":" + min + ":" + second;
+                format += " HH:mm:ss";
             }
-            return normalDate;
+            map.put("date", normalDate);
+            map.put("format", format);
+            return map;
         } else {
             throw new UtilException("日期格式不正确");
         }
