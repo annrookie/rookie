@@ -854,13 +854,13 @@ public class DateUtil {
      */
     public static Map<String, Integer> getDHms(int seconds) {
         // 一天 / 60*60*24
-        int days = seconds / 86400;
+        int days = seconds / Constant.DAY_SECOND;
         // 一天还剩下的小时数 / (60*60) % 24
-        int hour = (seconds / 3600) % 24;
+        int hour = (seconds / Constant.HOUR_SECOND) % Constant.HOUR_MAX;
         // 一天还剩下的分钟数 % (60*60) / 60；
-        int min = (seconds % (3600)) / 60;
+        int min = (seconds % (Constant.HOUR_SECOND)) / Constant.MINUTE_MAX;
         // 秒数
-        int second = (seconds % 3600) % 60;
+        int second = (seconds % Constant.HOUR_SECOND) % Constant.SECOND_MAX;
 
         Map<String, Integer> map = new HashMap<>();
         map.put("day", days);
@@ -1135,5 +1135,69 @@ public class DateUtil {
      */
     public static boolean isLeapYear(int year) {
         return new GregorianCalendar().isLeapYear(year);
+    }
+
+    /**
+     * 获取指定日期当周的时间
+     * yyyy-MM-dd
+     * @param date 指定日期
+     * @return map
+     */
+    public static Map<String, List<Object>> weekByDay(String date) {
+        //时间转为标准时间格式
+        Map<String, String> map = toNormalDate(date);
+        //不为null则一定有值
+        if (map == null) {
+            return null;
+        }
+        //获取时间
+        String normalDate = map.get("date");
+        //判断时间转为yyyy-MM-dd
+        if (normalDate.length() > 10) {
+            normalDate = changeFormat(normalDate, Constant.DATE_NORMAL, Constant.DATE_DAY);
+        }
+        // 判断当天为周几，用数字表示
+        int day = getDayOfWeek(date);
+        Map<String, List<Object>> rangeMap = new HashMap<String, List<Object>>(7);
+        List<Object> longList = new ArrayList<>();
+        List<Object> dateList = new ArrayList<>();
+        //将指定时间转化为秒时间戳
+        long l = timeToSecondStamp(normalDate);
+        if (day == 1) {
+            //周一 追加六天
+            longList.add(l);
+            dateList.add(normalDate);
+            for (int i = 0; i < Constant.SEVEN - 1; i++) {
+                l += Constant.DAY_SECOND;
+                longList.add(l);
+                dateList.add(secondStampToTime(l, Constant.DATE_DAY));
+            }
+        } else if (day == Constant.SEVEN) {
+            // 周日 当前天追加前六天时间
+            for (int i = Constant.SEVEN - 1; i > 0; i--) {
+                long temp = l - i * Constant.DAY_SECOND;
+                longList.add(temp);
+                dateList.add(secondStampToTime(temp, Constant.DATE_DAY));
+            }
+            longList.add(l);
+            dateList.add(normalDate);
+        } else {
+            // 介于周一和周日之间
+            for (int i = day - 1; i > 0; i--) {
+                long temp = l - i * Constant.DAY_SECOND;
+                longList.add(temp);
+                dateList.add(secondStampToTime(temp, Constant.DATE_DAY));
+            }
+            longList.add(l);
+            dateList.add(normalDate);
+            for (int i = 0; i < Constant.SEVEN - day; i++) {
+                l += Constant.DAY_SECOND;
+                longList.add(l);
+                dateList.add(secondStampToTime(l, Constant.DATE_DAY));
+            }
+        }
+        rangeMap.put("date", dateList);
+        rangeMap.put("timestamp", longList);
+        return rangeMap;
     }
 }

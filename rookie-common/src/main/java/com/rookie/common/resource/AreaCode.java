@@ -1,6 +1,6 @@
 package com.rookie.common.resource;
 
-import com.sun.xml.internal.ws.util.UtilException;
+import com.rookie.common.exception.UtilException;
 
 import java.io.IOException;
 import java.io.InputStream;

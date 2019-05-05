@@ -342,4 +342,8 @@ public class ComUtil {
         return url != null && url.matches(Constant.REG_URL);
     }
 
+    public static boolean isWindows(){
+        String sysName = System.getProperty("os.name");
+        return sysName.toLowerCase().contains(Constant.WIN);
+    }
 }

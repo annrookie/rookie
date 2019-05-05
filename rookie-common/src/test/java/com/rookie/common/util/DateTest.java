@@ -3,6 +3,7 @@ package com.rookie.common.util;
 import org.junit.Test;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -221,5 +222,13 @@ public class DateTest {
     public void getHmsTest(){
         String hms = DateUtil.getHms(21661);
         System.out.println(hms);
+    }
+
+    @Test
+    public void weekByDay(){
+
+
+        Map<String, List<Object>> stringListMap = DateUtil.weekByDay("2019-5-14 12:00:12");
+        System.out.println(stringListMap);
     }
 }

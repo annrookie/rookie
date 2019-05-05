@@ -54,7 +54,7 @@ public class ComUtilTest {
 
     @Test
     public void isDateTest(){
-        Assert.assertTrue(ComUtil.isDate("2018 02 27 23:13:60"));
+        Assert.assertTrue(ComUtil.isDate("2018.02.27 23:13:60"));
     }
 
     @Test
@@ -89,4 +89,8 @@ public class ComUtilTest {
         System.out.println(city);
     }
 
+    @Test
+    public void isWindowsTest(){
+        Assert.assertTrue(ComUtil.isWindows());
+    }
 }

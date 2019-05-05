@@ -15,11 +15,30 @@ public class Constant {
     public static final int ZERO = 0;
     public static final int ONE = 1;
     public static final int TWO = 2;
+    public static final int SEVEN = 7;
 
+    /**
+     * 最大分钟数 60
+     * 最大秒数 60
+     * 最大小时数 24
+     * 一小时秒数 3600
+     * 一天的秒数 86400
+     */
+    public static final int MINUTE_MAX = 60;
+    public static final int SECOND_MAX = 60;
+    public static final int HOUR_MAX = 24;
+    public static final int HOUR_SECOND = 3600;
+    public static final int DAY_SECOND = 86400;
+
+    public static final String ISO_8859_1 = "ISO-8859-1";
+    public static final String UTF_8 = "UTF-8";
+    public static final String GBK = "GBK";
+
+    public static final String WIN = "windows";
     /**
      * 日期格式
      */
-    public static final String[] DATE_FORMAT = {"yyyyMMdd", "yyyy-MM-dd", "yyyy/MM/dd", "yyyy.MM.dd", "yyyy年MM月dd日", "yyyy MM dd"};
+    public static final String[] DATE_FORMAT = {"yyyyMMdd", "yyyy-MM-dd", "yyyy/MM/dd", "yyyy.MM.dd", "yyyy年MM月dd日"};
 
     /**
      * 日期格式 yyyy-MM-dd HH:mm:ss
